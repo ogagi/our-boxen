@@ -19,7 +19,6 @@ class people::rhoml {
   include cyberduck
   include adium
   include viscosity
-  include sequel
   include firefox
   include java
   include drive
