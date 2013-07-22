@@ -27,6 +27,10 @@ class people::rhoml {
   # Include all Wuaki.TV projects
   include projects::all
 
+  class { 'ruby::global':
+    version => '1.9.3'
+  }
+
   $home                         = "/Users/${::luser}"
   $my                           = "${home}/my"
   $development_path             = "${home}/Development"
