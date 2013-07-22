@@ -39,7 +39,6 @@ class people::rhoml {
   $rhoml_aws_autoscaling        = "${rhoml_development_path}/aws-autoscaling"
   $rhoml_blog                   = "${rhoml_development_path}/rhommelldotcom"
   $rhoml_puppet_firefox         = "${rhoml_development_path}/puppet_firefox"
-  $rhoml_puppet_sequel          = "${rhoml_development_path}/puppet_sequel"
   $rhoml_puppet_tower           = "${rhoml_development_path}/puppet_tower"
   $rhoml_puppet_sublime_text_2  = "${rhoml_development_path}/puppet_sublime_text_2"
   $rhoml_dotfiles               = "${rhoml_development_path}/dotfiles"
@@ -103,10 +102,6 @@ class people::rhoml {
 
     "${rhoml_puppet_firefox}":
       source   => 'rhoml/puppet-firefox',
-      require  => File["${rhoml_development_path}"];
-
-    "${rhoml_puppet_sequel}":
-      source   => 'rhoml/puppet-sequel',
       require  => File["${rhoml_development_path}"];
 
     "${rhoml_puppet_tower}":
@@ -191,3 +186,4 @@ class people::rhoml {
     refreshonly  => true 
   }
 }
+d
