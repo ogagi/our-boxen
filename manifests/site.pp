@@ -39,10 +39,7 @@ Repository {
   extra    => [
     '--recurse-submodules'
   ],
-  require  => File["${boxen::config::bindir}/boxen-git-credential"],
-  config   => {
-    'credential.helper' => "${boxen::config::bindir}/boxen-git-credential"
-  }
+  require  => Class['git']
 }
 
 Service {
@@ -56,7 +53,6 @@ node default {
   include dnsmasq
   include git
   include hub
-  include nginx
 
   # fail if FDE is not enabled
   if $::root_encrypted == 'no' {
@@ -64,16 +60,31 @@ node default {
   }
 
   # node versions
-  include nodejs::v0_4
-  include nodejs::v0_6
-  include nodejs::v0_8
-  include nodejs::v0_10
+  include nodejs::0-4
+  include nodejs::0-6
+  include nodejs::0-8
 
   # default ruby versions
   include ruby::1_8_7
   include ruby::1_9_2
   include ruby::1_9_3
   include ruby::2_0_0
+
+
+  # Gems
+  ruby::gem { 
+    'jekyll for 0.12.1':
+      gem     => 'jekyll',
+      ruby    => $version,
+      version => '~> 0.12.1',
+      require => Class['ruby::1_9_3'];
+
+    'rdiscount for 2.0.7.1':
+      gem     => 'rdiscount',
+      ruby    => $version,
+      version => '~> 2.0.7.1',
+      require => Class['ruby::1_9_3']
+  }
 
   # common, useful packages
   package {
@@ -84,7 +95,7 @@ node default {
     ]:
   }
 
-  file { "${boxen::config::srcdir}/our-boxen":
+  file { "${boxen::config::srcdir}/boxen":
     ensure => link,
     target => $boxen::config::repodir
   }
