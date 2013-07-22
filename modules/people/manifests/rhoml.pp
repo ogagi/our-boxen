@@ -183,7 +183,6 @@ class people::rhoml {
 
   exec { 'ln-dotfiles':
     command      => "/bin/sh ${my}/dotfiles/install.sh",
-    refreshonly  => true 
+    refreshonly  => true
   }
 }
-d
